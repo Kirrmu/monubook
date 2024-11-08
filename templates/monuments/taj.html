@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Taj Mahal Visit - MonuBook</title>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to right, #ffffff, #dfe9f3);
+            font-family: 'Josefin Sans', sans-serif;
+            padding-top: 80px;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 100px;
+            right: 0;
+            width: 300px;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: -4px 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            z-index: 10;
+        }
+
+        .sidebar h3 {
+            color: #36395A;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .addon-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .addon-list li {
+            margin: 15px 0;
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 8px;
+            transition: background-color 0.3s, transform 0.2s;
+            cursor: pointer;
+        }
+
+        .addon-list li:hover {
+            background-color: #e63946;
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .addon-list li .addon-name {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .addon-list li .addon-price {
+            font-size: 1rem;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .addon-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .addon-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+            background-color: #f8f9fa;
+            margin: 5px 0;
+            border-radius: 8px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .addon-name {
+            font-weight: 500;
+            color: #36395A;
+        }
+
+        .addon-price {
+            font-weight: 500;
+            color: #e63946;
+        }
+
+        .addon-counter {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .addon-btn {
+            background-color: #e63946;
+            color: white;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .addon-btn:hover {
+            background-color: #dc2f3d;
+        }
+
+        .addon-count {
+            font-size: 1.2rem;
+            color: #36395A;
+            font-weight: 500;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+
+        .search-bar-container {
+            background-color: #f8f9fa;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+        }
+
+        .search-bar {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .search-bar input {
+            border-radius: 50px;
+            padding: 10px 20px;
+            border: 1px solid #ced4da;
+            box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.1);
+            flex-grow: 1;
+            margin-left: 15px;.button-30 {
+            align-items: center;
+            appearance: none;
+            background-color: #FCFCFD;
+            border-radius: 4px;
+            border-width: 0;
+            box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+            box-sizing: border-box;
+            color: #36395A;
+            cursor: pointer;
+            display: inline-flex;
+            font-family: 'Josefin Sans', sans-serif;
+            height: 56px;
+            padding: 16px 40px;
+            justify-content: center;
+            line-height: 1;
+            text-align: center;
+            text-decoration: none;
+            transition: box-shadow .15s, transform .15s;
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+            font-family: 'Josefin Sans', sans-serif;
+            font-weight: 300;
+        }
+
+        .search-bar img {
+            height: 40px;
+            width: auto;
+            order: -1;
+        }
+
+        .search-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .search-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: #fff;
+            border: 1px solid #ced4da;
+            border-radius: 0 0 4px 4px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            display: none;
+        }
+
+        .search-result {
+            display: block;
+            padding: 8px 16px;
+            color: #36395A;
+            text-decoration: none;
+        }
+
+        .search-result:hover {
+            background-color: #f8f9fa;
+        }
+
+        .monument-header {
+            height: 40vh;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            background-image: url('static/images/taj_button.png');
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+
+        .monument-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .booking-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group label {
+            font-weight: 500;
+            color: #36395A;
+        }
+
+        .info-box {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .info-box h5 {
+            color: #36395A;
+            margin-bottom: 0.5rem;
+        }
+
+        .traffic-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .book-button {
+            background-color: #e63946;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            border: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .book-button:hover {
+            background-color: #dc2f3d;
+            transform: translateY(-2px);
+        }
+
+        .more-info-btn {
+            background: none;
+            border: none;
+            color: #36395A;
+            text-decoration: underline;
+            padding: 0;
+            margin-top: 1rem;
+        }
+
+        #priceDisplay {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #36395A;
+        }
+
+        .account-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .account-button {
+            background: none;
+            border: none;
+            color: #36395A;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px 10px;
+            margin-left: 15px;
+        }
+
+        .account-info {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #e5e5e5;
+            color: #36395A;
+            font-weight: 500;
+        }
+
+        .account-info i {
+            margin-right: 8px;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .dropdown-content a {
+            color: #36395A;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .show {
+            display: block;
+        }
+
+        .more-info-btn {
+            background: none;
+            border: 2px solid #e63946;
+            color: #e63946;
+            text-decoration: none;
+            padding: 8px 20px;
+            margin-top: 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .more-info-btn:hover {
+            background: #e63946;
+            color: white;
+            text-decoration: none;
+        }
+
+        .modal-backdrop {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+        }
+
+        .info-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            z-index: 1001;
+            max-width: 500px;
+            width: 90%;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .modal-title {
+            color: #36395A;
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #36395A;
+            cursor: pointer;
+            padding: 0;
+            line-height: 1;
+        }
+
+        .modal-content-inner {
+            color: #36395A;
+        }
+
+        .info-section {
+            margin-bottom: 1rem;
+        }
+
+        .info-section h4 {
+            color: #e63946;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-section p {
+            margin-bottom: 0.5rem;
+            line-height: 1.5;
+        }
+
+        .price-prediction {
+            display: none;
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border: 2px solid #e63946;
+        }
+
+        .price-prediction h5 {
+            color: #36395A;
+            margin-bottom: 1rem;
+        }
+
+        .predicted-price {
+            font-size: 1.25rem;
+            color: #e63946;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .price-details {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .loading-spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #e63946;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        .price-breakdown {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="search-bar-container">
+        <div class="search-bar">
+            <a href="/home">
+                <img src="static/images/MonuBook_logo.png" alt="MonuBook Logo">
+            </a>
+            <div class="search-container">
+                <input type="text" class="form-control" id="search-input" placeholder="Search for monuments..." oninput="searchMonuments()">
+                <div class="search-dropdown" id="search-dropdown">
+                </div>
+            </div>
+            <div class="search-bar-buttons">
+                <div class="account-dropdown">
+                    <button class="account-button" onclick="toggleDropdown()">
+                        <i class="fas fa-user-circle"></i>
+                    </button>
+                    <div id="accountDropdown" class="dropdown-content">
+                        <div class="account-info">
+                            <i class="fas fa-user mr-2"></i>
+                            <span id="account-email">{{ session.get('email', 'Guest') }}</span>
+                        </div>
+                        <a href="/bookings"><i class="fas fa-history mr-2"></i>Bookings</a>
+                        <a href="/incentive"><i class="fas fa-trophy mr-2"></i>Incentives</a>
+                        <a href="/logout"><i class="fas fa-sign-out-alt mr-2"></i>Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="monument-header">
+        <div class="header-content">
+            <h1>Taj Mahal</h1>
+            <p>Book your visit to this Wonder of the World</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="booking-container">
+            <form id="bookingForm">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" class="form-control" id="name" required>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="date">Visit Date</label>
+                            <input type="date" class="form-control" id="date" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="time">Time Slot</label>
+                            <select class="form-control" id="time" required>
+                                <option value="">Select time</option>
+                                <option value="0600-0700">6AM - 7AM</option>
+                                <option value="0700-0800">7AM - 8AM</option>
+                                <option value="0800-0900">8AM - 9AM</option>
+                                <option value="0900-1000">9AM - 10AM</option>
+                                <option value="1000-1100">10AM - 11AM</option>
+                                <option value="1100-1200">11AM - 12PM</option>
+                                <option value="1200-1300">12PM - 1PM</option>
+                                <option value="1300-1400">1PM - 2PM</option>
+                                <option value="1400-1500">2PM - 3PM</option>
+                                <option value="1500-1600">3PM - 4PM</option>
+                                <option value="1600-1700">4PM - 5PM</option>
+                                <option value="1700-1800">5PM - 6PM</option>
+                                <option value="1800-1900">6PM - 7PM</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="adults">Adults</label>
+                            <input type="number" class="form-control" id="adults" min="1" value="1" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="children">Children</label>
+                            <input type="number" class="form-control" id="children" min="0" value="0">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="price-prediction" id="pricePrediction">
+                    <h5>Predicted Price for Selected Date and Time</h5>
+                    <div class="predicted-price" id="predictedPrice">₹0</div>
+                    <div class="price-details">Based on current traffic</div>
+                    <div class="loading-spinner" id="loadingSpinner"></div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="info-box">
+                            <h5>Expected Traffic</h5>
+                            <div class="traffic-indicator">
+                                <div id="trafficEstimation"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="info-box">
+                            <h5>Total Price</h5>
+                            <div id="priceDisplay">₹0</div>
+                            <div class="price-breakdown" id="priceBreakdown"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" id="bookButton" class="book-button">Book Now</button>
+                <button type="button" class="more-info-btn" onclick="showMoreInfo()">More Information</button>
+            </form>
+        </div>
+        <div class="sidebar">
+            <h3>Special Add-Ons</h3>
+            <ul class="addon-list">
+                <li>
+                    <span class="addon-name">Food Package</span>
+                    <span class="addon-price">₹500</span>
+                    <div class="addon-counter" id="foodPackageCounter">
+                        <button type="button" class="addon-btn" onclick="updateAddonCount('foodPackage', -1)">-</button>
+                        <span class="addon-count" id="foodPackageCount">0</span>
+                        <button type="button" class="addon-btn" onclick="updateAddonCount('foodPackage', 1)">+</button>
+                    </div>
+                </li>
+                <li>
+                    <span class="addon-name">Tour Package</span>
+                    <span class="addon-price">₹1500</span>
+                    <div class="addon-counter" id="tourPackageCounter">
+                        <button type="button" class="addon-btn" onclick="updateAddonCount('tourPackage', -1)">-</button>
+                        <span class="addon-count" id="tourPackageCount">0</span>
+                        <button type="button" class="addon-btn" onclick="updateAddonCount('tourPackage', 1)">+</button>
+                    </div>
+                </li>
+                <li>
+                    <span class="addon-name">Photography Package</span>
+                    <span class="addon-price">₹1000</span>
+                    <div class="addon-counter" id="photographyPackageCounter">
+                        <button type="button" class="addon-btn" onclick="updateAddonCount('photographyPackage', -1)">-</button>
+                        <span class="addon-count" id="photographyPackageCount">0</span>
+                        <button type="button" class="addon-btn" onclick="updateAddonCount('photographyPackage', 1)">+</button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="modal-backdrop" id="modalBackdrop"></div>
+<div class="info-modal" id="infoModal">
+    <div class="modal-header">
+        <h3 class="modal-title">Taj Mahal Information</h3>
+        <button class="close-modal" onclick="hideMoreInfo()">&times;</button>
+    </div>
+    <div class="modal-content-inner">
+        <div class="info-section">
+            <h4>Opening Hours</h4>
+            <p>Open daily (except Fridays) from sunrise to sunset</p>
+        </div>
+
+        <div class="info-section">
+            <h4>Best Time to Visit</h4>
+            <p>Early morning (6 AM - 8 AM) or during sunset for the best views and fewer crowds</p>
+        </div>
+
+        <div class="info-section">
+            <h4>Facilities</h4>
+            <p>- Audio guides available in multiple languages<br>
+               - Photography allowed (except inside the mausoleum)<br>
+               - Guided tours available<br>
+               - Wheelchair accessible<br>
+               - Battery-operated vehicles and shoe covers provided</p>
+        </div>
+
+        <div class="info-section">
+            <h4>Getting There</h4>
+            <p>Located in Agra, Uttar Pradesh. Accessible by train, bus, and car. The nearest railway station is Agra Cantt.</p>
+        </div>
+
+        <div class="info-section">
+            <h4>Tips</h4>
+            <p>- Wear comfortable shoes as you will be walking<br>
+               - Carry water and a hat or sunscreen<br>
+               - Plan for 2-3 hours for a full visit<br>
+               - Book tickets in advance, especially during peak season<br>
+               - Fridays are reserved for mosque prayers, and the monument is closed</p>
+        </div>
+    </div>
+</div>
+    <script>
+        let basePrice = 0;
+        let breakdownHTML = "";
+
+        async function updateTrafficEstimation() {
+            const date = document.getElementById('date').value;
+            const timeSlot = document.getElementById('time').value;
+
+            if (!date || !timeSlot) {
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/get-traffic', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        monument: 'Taj Mahal',
+                        visit_date: date,
+                        time_slot: timeSlot
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    document.getElementById('trafficEstimation').textContent = `${data.traffic}`;
+                } else {
+                    document.getElementById('trafficEstimation').textContent = "No traffic data available for the selected time.";
+                }
+            } catch (error) {
+                console.error('Error fetching traffic data:', error);
+                document.getElementById('trafficEstimation').textContent = "Error fetching traffic data. Please try again.";
+            }
+        }
+
+        async function calculatePredictedPrice() {
+            const date = document.getElementById('date').value;
+            const timeSlot = document.getElementById('time').value;
+
+            if (!date || !timeSlot) {
+                return;
+            }
+
+            document.getElementById('loadingSpinner').style.display = 'block';
+            document.getElementById('pricePrediction').style.display = 'block';
+
+            try {
+                const response = await fetch('/api/predict-price', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        monument: 'taj',
+                        visit_date: date,
+                        time_slot: timeSlot
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    basePrice = data.predicted_price;
+                    document.getElementById('predictedPrice').textContent = `₹${basePrice}`;
+
+                    updatePrice();
+                }
+
+            } catch (error) {
+                console.error('Error calculating price:', error);
+                alert('Error calculating price. Please try again.');
+            } finally {
+                document.getElementById('loadingSpinner').style.display = 'none';
+            }
+        }
+
+        function updatePrice() {
+            if (basePrice > 0) {
+                const adults = parseInt(document.getElementById('adults').value) || 0;
+                const children = parseInt(document.getElementById('children').value) || 0;
+                const totalPrice = adults * basePrice;
+
+                document.getElementById('priceDisplay').textContent = `₹${totalPrice}`;
+
+                breakdownHTML = `
+                    Adult Price: ₹${basePrice} × ${adults} = ₹${adults * basePrice}<br>
+                    Children: ₹0<br>
+                    <strong>Total: ₹${totalPrice}</strong>
+                `;
+                document.getElementById('priceBreakdown').innerHTML = breakdownHTML;
+            }
+        }
+
+        document.getElementById('date').addEventListener('change', () => {
+            calculatePredictedPrice();
+            updateTrafficEstimation();
+        });
+        document.getElementById('time').addEventListener('change', () => {
+            calculatePredictedPrice();
+            updateTrafficEstimation();
+        });
+        document.getElementById('adults').addEventListener('input', updatePrice);
+        document.getElementById('children').addEventListener('input', updatePrice);
+
+        window.addEventListener('load', () => {
+            calculatePredictedPrice();
+            updateTrafficEstimation();
+        });
+
+        function getSelectedAddOns() {
+            const selectedAddOns = [];
+
+            if (document.getElementById('foodPackageCount').textContent > 0) {
+                selectedAddOns.push('Food Package');
+            }
+            if (document.getElementById('tourPackageCount').textContent > 0) {
+                selectedAddOns.push('Tour Package');
+            }
+            if (document.getElementById('photographyPackageCount').textContent > 0) {
+                selectedAddOns.push('Photography Package');
+            }
+
+            return selectedAddOns;
+        }
+
+        document.getElementById('bookButton').addEventListener('click', async function() {
+            const name = document.getElementById('name').value;
+            const date = document.getElementById('date').value;
+            const time = document.getElementById('time').value;
+            const adults = document.getElementById('adults').value;
+            const children = document.getElementById('children').value;
+
+            if (!name || !date || !time) {
+                alert('Please fill out all required fields.');
+                return;
+            }
+
+            const selectedAddOns = getSelectedAddOns();
+            const specialAddOns = selectedAddOns.join(', ');
+
+            try {
+                const params = new URLSearchParams({
+                    monument: 'Taj Mahal',
+                    name,
+                    date,
+                    time,
+                    adults,
+                    children,
+                    total_price: basePrice * adults,
+                    special_addons: specialAddOns
+                });
+
+                window.location.href = `/confirmation?${params.toString()}`;
+            } catch (error) {
+                console.error('Error submitting booking:', error);
+                alert('Error submitting booking. Please try again.');
+            }
+        });
+
+
+        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Booking successful! A confirmation email will be sent shortly.');
+        });
+
+        function showMoreInfo() {
+            alert('The Taj Mahal is open every day except Friday.\nBest visited during sunrise or sunset.\nGuided tours available.\nNo food allowed inside.');
+        }
+
+        function toggleDropdown() {
+            document.getElementById("accountDropdown").classList.toggle("show");
+        }
+
+        window.onclick = function(event) {
+            if (!event.target.matches('.account-button') && !event.target.matches('.fa-user-circle')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+
+        function showMoreInfo() {
+            document.getElementById('modalBackdrop').style.display = 'block';
+            document.getElementById('infoModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function hideMoreInfo() {
+            document.getElementById('modalBackdrop').style.display = 'none';
+            document.getElementById('infoModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        document.getElementById('modalBackdrop').addEventListener('click', function(e) {
+            if (e.target === this) {
+                hideMoreInfo();
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                hideMoreInfo();
+            }
+        });
+
+        function searchMonuments() {
+            const searchInput = document.getElementById('search-input');
+            const searchDropdown = document.getElementById('search-dropdown');
+            const query = searchInput.value.trim();
+
+            if (query.length >= 2) {
+                fetch(`/search?query=${query}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        searchDropdown.innerHTML = '';
+                        data.forEach(monument => {
+                            const resultElement = document.createElement('a');
+                            resultElement.href = monument.url;
+                            resultElement.textContent = monument.name;
+                            resultElement.classList.add('search-result');
+                            searchDropdown.appendChild(resultElement);
+                        });
+                        searchDropdown.style.display = 'block';
+                    })
+                    .catch(error => {
+                        console.error('Error fetching search results:', error);
+                    });
+            } else {
+                searchDropdown.innerHTML = '';
+                searchDropdown.style.display = 'none';
+            }
+        }
+
+        function updateAddonCount(addonId, change) {
+            const countElement = document.getElementById(`${addonId}Count`);
+            let count = parseInt(countElement.textContent);
+
+            count += change;
+
+            count = Math.max(0, Math.min(count, 1));
+
+            countElement.textContent = count;
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Booking Confirmation - MonuBook</title>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to right, #ffffff, #dfe9f3);
+            font-family: 'Josefin Sans', sans-serif;
+            color: #36395A;
+        }
+        .confirmation-container {
+            max-width: 600px;
+            margin: 100px auto;
+            padding: 40px;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+            text-align: center;
+        }
+        .confirmation-icon {
+            font-size: 4rem;
+            color: #4caf50;
+            margin-bottom: 20px;
+        }
+        .confirmation-message h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .confirmation-details {
+            margin-top: 30px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        .confirmation-details strong {
+            font-weight: 600;
+        }
+        .back-to-home {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 30px;
+            background-color: #e63946;
+            color: #fff;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        .back-to-home:hover {
+            background-color: #dc2f3d;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="confirmation-container">
+        <div class="confirmation-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <div class="confirmation-message">
+            <h1>Booking Confirmed!</h1>
+            <p>Thank you for booking with MonuBook! Your visit to {{ booking_data.monument }} is confirmed.</p>
+        </div>
+        <ul class="confirmation-details">
+            <li><strong>Name:</strong> {{ booking_data.name }}</li>
+            <li><strong>Date:</strong> {{ booking_data.date }}</li>
+            <li><strong>Time Slot:</strong> {{ booking_data.time }}</li>
+            <li><strong>Adults:</strong> {{ booking_data.adults }}</li>
+            <li><strong>Children:</strong> {{ booking_data.children }}</li>
+            <li><strong>Total Price:</strong> ₹{{ booking_data.total_price }}</li>
+            <li><strong>Special Addons</strong> {{ booking_data.special_addons }}</li>
+            <li><img src="data:image/png;base64,{{ qr_code }}" alt="QR Code"></li>
+        </ul>
+        <a href="/home" class="back-to-home">
+            <i class="fas fa-home"></i> Back to Home
+        </a>
+    </div>
+
+</body>
+</html>

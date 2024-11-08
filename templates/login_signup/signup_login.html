@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MonuBook - Welcome</title>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to right, #ffffff, #dfe9f3);
+            font-family: 'Josefin Sans', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .auth-container {
+            text-align: center;
+            padding: 40px;
+            background-color: white;
+            box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,
+                        rgba(45, 35, 66, 0.3) 0 7px 13px -3px,
+                        #D6D6E7 0 -3px 0 inset;
+            border-radius: 15px;
+            width: 400px;
+            transition: transform 0.3s ease;
+        }
+
+        .auth-container:hover {
+            transform: translateY(-5px);
+        }
+
+        .logo-container {
+            margin-bottom: 30px;
+        }
+
+        .auth-container img {
+            width: 150px;
+            height: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .auth-container img:hover {
+            transform: scale(1.05);
+        }
+
+        .auth-container h2 {
+            font-size: 2.2rem;
+            color: #36395A;
+            margin-bottom: 30px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .button-30 {
+            align-items: center;
+            appearance: none;
+            background-color: #FCFCFD;
+            border-radius: 50px;
+            border-width: 0;
+            box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,
+                        rgba(45, 35, 66, 0.3) 0 7px 13px -3px,
+                        #D6D6E7 0 -3px 0 inset;
+            color: #36395A;
+            cursor: pointer;
+            display: inline-flex;
+            font-family: 'Josefin Sans', sans-serif;
+            height: 56px;
+            justify-content: center;
+            align-items: center;
+            padding: 0 32px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 18px;
+            font-weight: 600;
+            width: 100%;
+            gap: 10px;
+        }
+
+        .button-30:hover {
+            box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px,
+                        rgba(45, 35, 66, 0.3) 0 7px 13px -3px,
+                        #D6D6E7 0 -3px 0 inset;
+            transform: translateY(-2px);
+        }
+
+        .button-30:active {
+            box-shadow: #D6D6E7 0 3px 7px inset;
+            transform: translateY(2px);
+        }
+
+        .guest-link {
+            font-size: 1.1rem;
+            color: #4a4a4a;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 10px 20px;
+            border-radius: 25px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .guest-link:hover {
+            color: #e63946;
+            background-color: rgba(230, 57, 70, 0.1);
+            text-decoration: none;
+        }
+
+        .separator {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 20px 0;
+            color: #6c757d;
+        }
+
+        .separator::before,
+        .separator::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .separator span {
+            padding: 0 10px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 480px) {
+            .auth-container {
+                width: 90%;
+                padding: 30px 20px;
+                margin: 20px;
+            }
+
+            .auth-container h2 {
+                font-size: 1.8rem;
+            }
+
+            .button-30 {
+                height: 48px;
+                font-size: 16px;
+            }
+
+            .auth-container img {
+                width: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="logo-container">
+            <a href="/home">
+                <img src="../static/images/MonuBook_logo.png" alt="MonuBook Logo">
+            </a>
+        </div>
+        <h2>Welcome to MonuBook</h2>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <script>
+                    window.onload = function() {
+                        {% for category, message in messages %}
+                            alert("{{ message }}");
+                        {% endfor %}
+                    }
+                </script>
+            {% endif %}
+        {% endwith %}
+        <div class="button-container">
+            <button class="button-30" onclick="window.location.href='/login'">
+                <i class="fas fa-sign-in-alt"></i>
+                Login
+            </button>
+            <button class="button-30" onclick="window.location.href='/signup'">
+                <i class="fas fa-user-plus"></i>
+                Sign Up
+            </button>
+        </div>
+        <div class="separator">
+            <span>or</span>
+        </div>
+        <p class="guest-link" onclick="window.location.href='/continue_as_guest'">
+            <i class="fas fa-user-circle"></i>
+            Continue as Guest
+        </p>
+    </div>
+</body>
+</html>

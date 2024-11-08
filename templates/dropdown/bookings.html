@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bookings</title>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to right, #ffffff, #dfe9f3);
+            font-family: 'Josefin Sans', sans-serif;
+        }
+
+        .search-bar-container {
+            background-color: #f8f9fa;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+        }
+
+        .search-bar {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .search-bar input {
+            border-radius: 50px;
+            padding: 10px 20px;
+            border: 1px solid #ced4da;
+            box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.1);
+            flex-grow: 1;
+            margin-left: 15px;.button-30 {
+            align-items: center;
+            appearance: none;
+            background-color: #FCFCFD;
+            border-radius: 4px;
+            border-width: 0;
+            box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+            box-sizing: border-box;
+            color: #36395A;
+            cursor: pointer;
+            display: inline-flex;
+            font-family: 'Josefin Sans', sans-serif;
+            height: 56px;
+            padding: 16px 40px;
+            justify-content: center;
+            line-height: 1;
+            text-align: center;
+            text-decoration: none;
+            transition: box-shadow .15s, transform .15s;
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+            font-family: 'Josefin Sans', sans-serif;
+            font-weight: 300;
+        }
+
+        .search-bar img {
+            height: 40px;
+            width: auto;
+            order: -1;
+        }
+
+        .search-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .search-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: #fff;
+            border: 1px solid #ced4da;
+            border-radius: 0 0 4px 4px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            display: none;
+        }
+
+        .search-result {
+            display: block;
+            padding: 8px 16px;
+            color: #36395A;
+            text-decoration: none;
+        }
+
+        .search-result:hover {
+            background-color: #f8f9fa;
+        }
+
+        .account-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .account-button {
+            background: none;
+            border: none;
+            color: #36395A;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px 10px;
+            margin-left: 15px;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .dropdown-content a {
+            color: #36395A;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .show {
+            display: block;
+        }
+
+        .bookings-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .bookings-container h2 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            color: #36395A;
+        }
+
+        .bookings-table {
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 800px;
+            overflow-x: auto;
+        }
+
+        .bookings-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .bookings-table th, .bookings-table td {
+            padding: 12px 20px;
+            text-align: left;
+            border-bottom: 1px solid #f1f1f1;
+        }
+
+        .bookings-table th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            color: #36395A;
+        }
+
+        .bookings-table td {
+            color: #4a4a4a;
+        }
+
+        .bookings-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .bookings-table tr:hover {
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+    <div class="search-bar-container">
+        <div class="search-bar">
+            <a href="/home">
+                <img src="static/images/MonuBook_logo.png" alt="MonuBook Logo">
+            </a>
+            <div class="search-container">
+                <input type="text" class="form-control" id="search-input" placeholder="Search for monuments..." oninput="searchMonuments()">
+                <div class="search-dropdown" id="search-dropdown">
+                </div>
+            </div>
+            <div class="search-bar-buttons">
+                <div class="account-dropdown">
+                    <button class="account-button" onclick="toggleDropdown()">
+                        <i class="fas fa-user-circle"></i>
+                    </button>
+                    <div id="accountDropdown" class="dropdown-content">
+                        <div class="account-info">
+                            <i class="fas fa-user mr-2"></i>
+                            <span id="account-email">{{ session.get('email', 'Guest') }}</span>
+                        </div>
+                        <a href="/bookings"><i class="fas fa-history mr-2"></i>Bookings</a>
+                        <a href="/incentive"><i class="fas fa-trophy mr-2"></i>Incentives</a>
+                        <a href="/logout"><i class="fas fa-sign-out-alt mr-2"></i>Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bookings-container">
+        <h2>Your Bookings</h2>
+        <div class="bookings-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Monument</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Adults</th>
+                        <th>Children</th>
+                        <th>Special Add-ons</th>
+                        <th>Total Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for booking in bookings %}
+                    <tr>
+                        <td>{{ booking.name }}</td>
+                        <td>{{ booking.monument }}</td>
+                        <td>{{ booking.date }}</td>
+                        <td>{{ booking.time }}</td>
+                        <td>{{ booking.adults }}</td>
+                        <td>{{ booking.children }}</td>
+                        <td>{{ booking.special_addons }}</td>
+                        <td>{{ booking.total_price }}</td>
+                        <td>
+                            <img src="data:image/png;base64,{{ booking.qr_code }}" alt="QR Code" style="width: 100px; height: 100px;">
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        function toggleDropdown() {
+            document.getElementById("accountDropdown").classList.toggle("show");
+        }
+
+        window.onclick = function(event) {
+            if (!event.target.matches('.account-button') && !event.target.matches('.fa-user-circle')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+
+        function searchMonuments() {
+            const searchInput = document.getElementById('search-input');
+            const searchDropdown = document.getElementById('search-dropdown');
+            const query = searchInput.value.trim();
+
+            if (query.length >= 2) {
+                fetch(`/search?query=${query}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        searchDropdown.innerHTML = '';
+                        data.forEach(monument => {
+                            const resultElement = document.createElement('a');
+                            resultElement.href = monument.url;
+                            resultElement.textContent = monument.name;
+                            resultElement.classList.add('search-result');
+                            searchDropdown.appendChild(resultElement);
+                        });
+                        searchDropdown.style.display = 'block';
+                    })
+                    .catch(error => {
+                        console.error('Error fetching search results:', error);
+                    });
+            } else {
+                searchDropdown.innerHTML = '';
+                searchDropdown.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
