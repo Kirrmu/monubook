@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Incentives</title>
+    <title>MonuBook - Incentives & Rewards</title>
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
@@ -11,79 +11,190 @@
         body {
             font-family: 'Josefin Sans', sans-serif;
             background: linear-gradient(to right, #ffffff, #dfe9f3);
+            min-height: 100vh;
         }
 
         .container {
-            max-width: 800px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 40px 20px;
         }
 
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 600;
-            margin-bottom: 2rem;
+        .header-text {
             text-align: center;
+            margin: 4rem 0;
             color: #36395A;
+            animation: fadeInUp 0.8s ease;
         }
 
-        h2 {
-            font-size: 1.8rem;
-            font-weight: 500;
-            margin-bottom: 1.5rem;
-            color: #4a4a4a;
+        .progress-container {
+            position: relative;
+            margin: 4rem 0;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            animation: slideIn 1s ease;
         }
 
-        #badgeDisplay, #discountDisplay {
-            background-color: #f8f9fa;
+        .progress-line {
+            height: 8px;
+            background: #f0f0f0;
+            border-radius: 4px;
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background: linear-gradient(90deg, #4CAF50, #2196F3, #9C27B0);
+            border-radius: 4px;
+            transition: width 1s ease-in-out;
+        }
+
+        .milestone-markers {
+            position: relative;
+            height: 30px;
+        }
+
+        .milestone {
+            position: absolute;
+            transform: translateX(-50%);
+            text-align: center;
+        }
+
+        .milestone-dot {
+            width: 20px;
+            height: 20px;
+            background: white;
+            border: 3px solid #e63946;
+            border-radius: 50%;
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .milestone.reached .milestone-dot {
+            background: #e63946;
+            transform: scale(1.2);
+        }
+
+        .badge-container {
+            display: flex;
+            justify-content: space-around;
+            margin: 3rem 0;
+            gap: 2rem;
+        }
+
+        .badge-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .badge-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .badge-icon {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 1rem;
+            transition: transform 0.5s ease;
+        }
+
+        .badge-card:hover .badge-icon {
+            transform: rotate(360deg);
+        }
+
+        .badge-card.locked {
+            opacity: 0.7;
+        }
+
+        .badge-card.locked::after {
+            content: '🔒';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2rem;
+            opacity: 0.5;
+        }
+
+        .discount-section {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-top: 3rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            animation: slideIn 1.2s ease;
+        }
+
+        .discount-card {
+            background: linear-gradient(135deg, #e63946, #f72585);
+            color: white;
             border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            margin-bottom: 40px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            transform-origin: left;
+            animation: scaleIn 0.5s ease forwards;
+            opacity: 0;
         }
 
-        #badges {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        .badge {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
-        .badge img {
-            width: 80px;
-            height: 80px;
-            margin-bottom: 10px;
+        @keyframes scaleIn {
+            from {
+                transform: scaleX(0);
+                opacity: 0;
+            }
+            to {
+                transform: scaleX(1);
+                opacity: 1;
+            }
         }
 
-        .badge span {
-            font-size: 1rem;
-            font-weight: 400;
-            color: #36395A;
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background-color: #f0f0f0;
+            position: absolute;
+            animation: confetti 5s ease-in-out infinite;
         }
 
-        #discountList {
-            list-style-type: none;
-            padding: 0;
-            font-size: 1.2rem;
-            font-weight: 400;
-            color: #36395A;
-        }
-
-        #discountList li {
-            margin-bottom: 10px;
-        }
-
-        #discounts {
-            font-size: 1.5rem;
-            font-weight: 500;
-            color: #e63946;
+        @keyframes confetti {
+            0% { transform: translateY(0) rotateZ(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotateZ(720deg); opacity: 0; }
         }
 
         .search-bar-container {
@@ -229,29 +340,10 @@
         .show {
             display: block;
         }
-
-		.more-info-btn {
-            background: none;
-            border: 2px solid #e63946;
-            color: #e63946;
-            text-decoration: none;
-            padding: 8px 20px;
-            margin-top: 1rem;
-            border-radius: 25px;
-            transition: all 0.3s ease;
-            width: 100%;
-        }
-
-        .more-info-btn:hover {
-            background: #e63946;
-            color: white;
-            text-decoration: none;
-        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="search-bar-container">
+    <div class="search-bar-container">
         <div class="search-bar">
             <a href="/home">
                 <img src="static/images/MonuBook_logo.png" alt="MonuBook Logo">
@@ -280,84 +372,143 @@
         </div>
     </div>
 
-        <h1>Incentives & Rewards</h1>
+    <div class="container">
+        <div class="header-text">
+            <h1>Your Monument Journey</h1>
+            <p>Track your progress and unlock exclusive rewards!</p>
+        </div>
 
-        <div id="badgeDisplay">
-            <h2>Your Achievements</h2>
-            <p>Total Monuments Visited: <span id="totalVisits">0</span></p>
-            <div id="badges">
-                <!-- Badges will populate here based on visit milestones -->
+        <div class="progress-container">
+            <h2>Progress Tracker</h2>
+            <div class="milestone-markers">
+                <div class="milestone" style="left: 0%">
+                    <div class="milestone-dot"></div>
+                    <span>Start</span>
+                </div>
+                <div class="milestone" style="left: 25%">
+                    <div class="milestone-dot"></div>
+                    <span>5 Visits</span>
+                </div>
+                <div class="milestone" style="left: 50%">
+                    <div class="milestone-dot"></div>
+                    <span>10 Visits</span>
+                </div>
+                <div class="milestone" style="left: 100%">
+                    <div class="milestone-dot"></div>
+                    <span>20 Visits</span>
+                </div>
+            </div>
+            <div class="progress-line">
+                <div class="progress-fill" style="width: 0%"></div>
+            </div>
+            <p class="text-center mt-3">Total Monuments Visited: <span id="visitCount">0</span></p>
+        </div>
+
+        <div class="badge-container">
+            <div class="badge-card">
+                <img src="static/images/bronze_badge.png" alt="Bronze Badge" class="badge-icon">
+                <h3>Bronze Explorer</h3>
+                <p>Begin your journey</p>
+            </div>
+            <div class="badge-card">
+                <img src="static/images/silver_badge.png" alt="Silver Badge" class="badge-icon">
+                <h3>Silver Voyager</h3>
+                <p>10+ monuments visited</p>
+            </div>
+            <div class="badge-card locked">
+                <img src="static/images/gold_badge.png" alt="Gold Badge" class="badge-icon">
+                <h3>Gold Pioneer</h3>
+                <p>20+ monuments visited</p>
             </div>
         </div>
 
-        <div id="discountDisplay">
-            <h2>Available Discounts</h2>
-            <p>Monument Discounts Earned: <span id="discounts">0%</span></p>
-            <ul id="discountList">
-                <!-- Discount levels will populate here based on milestones -->
-            </ul>
+        <div class="discount-section">
+            <h2>Your Rewards</h2>
+            <div id="discountContainer"></div>
         </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
-            const totalVisitsElem = document.getElementById('totalVisits');
-            const badgesElem = document.getElementById('badges');
-            const discountsElem = document.getElementById('discounts');
-            const discountListElem = document.getElementById('discountList');
-
             try {
-                // Fetch data from backend
                 const response = await fetch('/api/get-incentives');
                 const data = await response.json();
 
                 if (data.success) {
-                    const { totalVisits, badges, discount } = data;
-
-                    // Update total visits
-                    totalVisitsElem.textContent = totalVisits;
-
-                    // Update badges display
-                    let badgeHtml = '';
-                    if (totalVisits >= 20) {
-                        badgeHtml += `
-                            <div class="badge">
-                                <img src="static/images/gold_badge.png" alt="Gold Badge">
-                                <span>Gold Level</span>
-                            </div>
-                        `;
-                    } else if (totalVisits >= 10) {
-                        badgeHtml += `
-                            <div class="badge">
-                                <img src="static/images/silver_badge.png" alt="Silver Badge">
-                                <span>Silver Level</span>
-                            </div>
-                        `;
-                    } else if (totalVisits >= 0) {
-                        badgeHtml += `
-                            <div class="badge">
-                                <img src="static/images/bronze_badge.png" alt="Bronze Badge">
-                                <span>Bronze Level</span>
-                            </div>
-                        `;
-                    }
-                    badgesElem.innerHTML = badgeHtml;
-
-                    // Update discounts display
-                    discountsElem.textContent = `${discount}%`;
-                    discountListElem.innerHTML = `
-                        <li>5 visits - 5% discount</li>
-                        <li>10 visits - 10% discount</li>
-                        <li>20 visits - 20% discount</li>
-                    `;
+                    const { totalVisits, discount } = data;
+                    updateProgress(totalVisits);
+                    updateBadges(totalVisits);
+                    createDiscountCards(totalVisits);
                 }
             } catch (error) {
-                console.error('Error fetching incentive data:', error);
-                alert('Error fetching incentive data. Please try again.');
+                console.error('Error:', error);
             }
         });
 
-    function toggleDropdown() {
+        function updateProgress(visits) {
+            const progressFill = document.querySelector('.progress-fill');
+            const visitCount = document.getElementById('visitCount');
+            const milestones = document.querySelectorAll('.milestone');
+
+            // Calculate progress percentage (max 20 visits)
+            const progress = Math.min((visits / 20) * 100, 100);
+
+            // Animate progress bar
+            progressFill.style.width = `${progress}%`;
+            visitCount.textContent = visits;
+
+            // Update milestone dots
+            milestones.forEach((milestone, index) => {
+                const milestoneVisits = [0, 5, 10, 20][index];
+                if (visits >= milestoneVisits) {
+                    milestone.classList.add('reached');
+                    createConfetti();
+                }
+            });
+        }
+
+        function updateBadges(visits) {
+            const badges = document.querySelectorAll('.badge-card');
+
+            if (visits >= 0) badges[0].classList.remove('locked');
+            if (visits >= 10) badges[1].classList.remove('locked');
+            if (visits >= 20) badges[2].classList.remove('locked');
+        }
+
+        function createDiscountCards(visits) {
+            const container = document.getElementById('discountContainer');
+            const discounts = [
+                { visits: 5, discount: '5%', delay: 0 },
+                { visits: 10, discount: '10%', delay: 0.2 },
+                { visits: 20, discount: '20%', delay: 0.4 }
+            ];
+
+            discounts.forEach(({ visits: reqVisits, discount, delay }) => {
+                const card = document.createElement('div');
+                card.className = 'discount-card';
+                card.style.animationDelay = `${delay}s`;
+                card.innerHTML = `
+                    <h3>${discount} Discount</h3>
+                    <p>${reqVisits} visits milestone ${visits >= reqVisits ? '✅' : '🎯'}</p>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function createConfetti() {
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * window.innerWidth + 'px';
+                confetti.style.backgroundColor = ['#e63946', '#f72585', '#4CAF50', '#2196F3'][Math.floor(Math.random() * 4)];
+                confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                document.body.appendChild(confetti);
+
+                setTimeout(() => confetti.remove(), 5000);
+            }
+        }
+
+        function toggleDropdown() {
             document.getElementById("accountDropdown").classList.toggle("show");
         }
 

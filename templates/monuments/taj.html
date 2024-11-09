@@ -17,103 +17,129 @@
         .sidebar {
             position: fixed;
             top: 100px;
-            right: 0;
-            width: 300px;
-            background-color: #fff;
-            padding: 20px;
-            box-shadow: -4px 4px 12px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
+            right: 20px;
+            width: 320px;
+            background-color: white;
+            padding: 24px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
             z-index: 10;
         }
 
         .sidebar h3 {
             color: #36395A;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
             font-weight: 600;
+            font-size: 1.5rem;
+            text-align: center;
         }
 
         .addon-list {
             list-style-type: none;
             padding: 0;
+            margin: 0;
         }
 
         .addon-list li {
-            margin: 15px 0;
-            background-color: #f8f9fa;
-            padding: 10px;
-            border-radius: 8px;
-            transition: background-color 0.3s, transform 0.2s;
-            cursor: pointer;
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
         }
 
         .addon-list li:hover {
-            background-color: #e63946;
-            color: white;
-            transform: translateX(5px);
+            border-color: #e63946;
+            transform: translateY(-2px);
         }
 
-        .addon-list li .addon-name {
-            font-size: 1.1rem;
-            font-weight: 500;
-        }
-
-        .addon-list li .addon-price {
-            font-size: 1rem;
-            color: #666;
-            margin-top: 5px;
-        }
-
-        .addon-list {
-            list-style-type: none;
-            padding-left: 0;
-        }
-
-        .addon-list li {
+        .addon-info {
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .addon-icon {
+            background: #e63946;
+            color: white;
             padding: 8px;
-            background-color: #f8f9fa;
-            margin: 5px 0;
             border-radius: 8px;
-            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            margin-right: 12px;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .addon-details {
+            flex-grow: 1;
         }
 
         .addon-name {
-            font-weight: 500;
+            font-weight: 600;
             color: #36395A;
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+        }
+
+        .addon-company {
+            font-size: 0.8rem;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 4px;
         }
 
         .addon-price {
-            font-weight: 500;
             color: #e63946;
+            font-weight: 500;
         }
 
         .addon-counter {
             display: flex;
             align-items: center;
-            gap: 10px;
+            justify-content: space-between;
+            background: white;
+            border-radius: 8px;
+            padding: 8px;
         }
 
         .addon-btn {
             background-color: #e63946;
             color: white;
             border: none;
-            padding: 5px 12px;
-            border-radius: 5px;
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
             cursor: pointer;
             font-size: 1.2rem;
-            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s;
         }
 
         .addon-btn:hover {
             background-color: #dc2f3d;
         }
 
+        .addon-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
         .addon-count {
             font-size: 1.2rem;
             color: #36395A;
-            font-weight: 500;
+            font-weight: 600;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        .selected-addon {
+            background: #fff3f4;
+            border-color: #e63946;
         }
 
         .container {
@@ -620,28 +646,52 @@
         <div class="sidebar">
             <h3>Special Add-Ons</h3>
             <ul class="addon-list">
-                <li>
-                    <span class="addon-name">Food Package</span>
-                    <span class="addon-price">₹500</span>
-                    <div class="addon-counter" id="foodPackageCounter">
+                <li id="foodPackageItem">
+                    <div class="addon-info">
+                        <div class="addon-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <div class="addon-details">
+                            <div class="addon-name">Mughal Feast Package</div>
+                            <div class="addon-company">by Royal Flavors of India</div>
+                            <div class="addon-price">₹500</div>
+                        </div>
+                    </div>
+                    <div class="addon-counter">
                         <button type="button" class="addon-btn" onclick="updateAddonCount('foodPackage', -1)">-</button>
                         <span class="addon-count" id="foodPackageCount">0</span>
                         <button type="button" class="addon-btn" onclick="updateAddonCount('foodPackage', 1)">+</button>
                     </div>
                 </li>
-                <li>
-                    <span class="addon-name">Tour Package</span>
-                    <span class="addon-price">₹1500</span>
-                    <div class="addon-counter" id="tourPackageCounter">
+                <li id="tourPackageItem">
+                    <div class="addon-info">
+                        <div class="addon-icon">
+                            <i class="fas fa-map-marked-alt"></i>
+                        </div>
+                        <div class="addon-details">
+                            <div class="addon-name">Heritage Explorer Tour</div>
+                            <div class="addon-company">by Timeless Tales Tours</div>
+                            <div class="addon-price">₹1500</div>
+                        </div>
+                    </div>
+                    <div class="addon-counter">
                         <button type="button" class="addon-btn" onclick="updateAddonCount('tourPackage', -1)">-</button>
                         <span class="addon-count" id="tourPackageCount">0</span>
                         <button type="button" class="addon-btn" onclick="updateAddonCount('tourPackage', 1)">+</button>
                     </div>
                 </li>
-                <li>
-                    <span class="addon-name">Photography Package</span>
-                    <span class="addon-price">₹1000</span>
-                    <div class="addon-counter" id="photographyPackageCounter">
+                <li id="photographyPackageItem">
+                    <div class="addon-info">
+                        <div class="addon-icon">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <div class="addon-details">
+                            <div class="addon-name">Professional Photo Session</div>
+                            <div class="addon-company">by Memories & Moments Studios</div>
+                            <div class="addon-price">₹1000</div>
+                        </div>
+                    </div>
+                    <div class="addon-counter">
                         <button type="button" class="addon-btn" onclick="updateAddonCount('photographyPackage', -1)">-</button>
                         <span class="addon-count" id="photographyPackageCount">0</span>
                         <button type="button" class="addon-btn" onclick="updateAddonCount('photographyPackage', 1)">+</button>
